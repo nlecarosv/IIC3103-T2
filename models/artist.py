@@ -9,7 +9,8 @@ class Artist(db.Model):
     name = db.Column(db.String(50), nullable=False)
     age = db.Column(db.Integer, nullable=False)
     url = db.Column(db.String(100), nullable=False)
-    albums = db.relationship("Album", backref='artist', lazy=True)
+    albums = db.relationship("Album", backref='artist',
+                             lazy=True, cascade='all, delete-orphan')
 
     @classmethod
     def create(cls, artist_id, name, age, base_url):

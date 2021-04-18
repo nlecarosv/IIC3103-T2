@@ -28,3 +28,11 @@ def create_artist(request, base_url):
             artist_id=artist_id, name=json['name'], age=json['age'], base_url=base_url)
         return jsonify(artist.json()), 201
     return jsonify({'message': 'artista ya existe'}), 409
+
+
+def delete_artist(artist_id):
+    artist = Artist.query.filter_by(id=artist_id).first()
+    if artist is None:
+        return jsonify({'message': 'artista inexistente'}), 404
+    artist.delete()
+    return jsonify({'message': 'artista eliminado'})

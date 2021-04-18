@@ -12,7 +12,8 @@ class Album(db.Model):
     name = db.Column(db.String(50), nullable=False)
     genre = db.Column(db.String(50), nullable=False)
     url = db.Column(db.String(100), nullable=False)
-    tracks = db.relationship("Track", backref='album', lazy=True)
+    tracks = db.relationship("Track", backref='album',
+                             lazy=True, cascade='all, delete-orphan')
 
     @classmethod
     def create(cls, album_id, artist_id, name, genre, base_url):

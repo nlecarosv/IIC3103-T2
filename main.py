@@ -43,13 +43,9 @@ def play_tracks_from_artist(id):
     return track_controller.play_tracks_from_artist(artist_id=id)
 
 
-# @app.route('/api/v1/users/<id>', methods=['DELETE'])
-# def delete_user(id):
-#   user = User.query.filter_by(id=id).first()
-#   if user is None:
-#     return jsonify({'message': 'User does not exists'}), 404
-#   user.delete()
-#   return jsonify({'user': user.json() })
+@app.route('/artists/<id>', methods=['DELETE'])
+def delete_artist(id):
+    return artist_controller.delete_artist(artist_id=id)
 
 
 # albums
@@ -77,9 +73,13 @@ def create_album(artist_id):
 def play_tracks_from_album(id):
     return track_controller.play_tracks_from_album(album_id=id)
 
+
+@app.route('/albums/<id>', methods=['DELETE'])
+def delete_album(id):
+    return album_controller.delete_album(album_id=id)
+
+
 # tracks
-
-
 @app.route('/tracks', methods=['GET'])
 def get_tracks():
     return track_controller.get_tracks()
@@ -108,6 +108,11 @@ def create_track(album_id):
 @app.route('/tracks/<id>/play', methods=['PUT'])
 def play_track(id):
     return track_controller.play_track(track_id=id)
+
+
+@app.route('/tracks/<id>', methods=['DELETE'])
+def delete_track(id):
+    return track_controller.delete_track(track_id=id)
 
 
 if __name__ == '__main__':

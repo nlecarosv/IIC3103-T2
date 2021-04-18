@@ -93,3 +93,11 @@ def play_tracks_from_artist(artist_id):
             track.times_played += 1
             track.update()
     return jsonify({'message': 'todas las canciones del artista fueron reproducidas'})
+
+
+def delete_track(track_id):
+    track = Track.query.filter_by(id=track_id).first()
+    if track is None:
+        return jsonify({'message': 'canción inexistente'}), 404
+    track.delete()
+    return jsonify({'message': 'canción eliminada'})
