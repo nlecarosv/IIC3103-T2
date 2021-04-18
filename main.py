@@ -6,6 +6,7 @@ from models.index import db
 import controllers.artist as artist_controller
 import controllers.album as album_controller
 import controllers.track as track_controller
+import os
 
 
 def create_app(enviroment):
@@ -17,7 +18,7 @@ def create_app(enviroment):
         return app
 
 
-enviroment = config['development']
+enviroment = config[os.environ['ENVIRONMENT']]
 base_url = enviroment.BASE_URL
 app = create_app(enviroment)
 
@@ -113,4 +114,4 @@ def play_track(id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
