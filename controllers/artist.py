@@ -1,3 +1,4 @@
+from helpers.verify_data import verify_data
 from flask import jsonify
 from models.artist import Artist
 from helpers.truncate_id import truncate_id
@@ -17,6 +18,8 @@ def get_artist(artist_id):
 
 
 def create_artist(request, base_url):
+    if not verify_data(request=request):
+        return jsonify({'message': 'input inválido'}), 400
     json = request.get_json(force=True)
     if json.get('name') is None or json.get('age') is None:
         return jsonify({'message': 'input inválido'}), 400

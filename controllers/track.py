@@ -1,3 +1,4 @@
+from helpers.verify_data import verify_data
 from models.track import Track
 from flask import jsonify
 from helpers.truncate_id import truncate_id
@@ -42,7 +43,8 @@ def get_track(track_id):
 
 
 def create_track(album_id, request, base_url):
-    print(album_id, 'albun_id')
+    if not verify_data(request=request):
+        return jsonify({'message': 'input inválido'}), 400
     if len(album_id) == 0:
         return jsonify({'message': 'input inválido'}), 400
     possible_album = Album.query.filter_by(id=album_id).first()

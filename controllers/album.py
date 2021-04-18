@@ -1,3 +1,4 @@
+from helpers.verify_data import verify_data
 from flask import jsonify
 from helpers.truncate_id import truncate_id
 from models.artist import Artist
@@ -27,6 +28,8 @@ def get_album(album_id):
 
 
 def create_album(artist_id, request, base_url):
+    if not verify_data(request=request):
+        return jsonify({'message': 'input inválido'}), 400
     if len(artist_id) == 0:
         return jsonify({'message': 'input inválido'}), 400
     possible_artist = Artist.query.filter_by(id=artist_id).first()
