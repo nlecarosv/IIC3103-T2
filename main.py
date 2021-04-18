@@ -1,6 +1,6 @@
 
 from flask import Flask
-from flask import request
+from flask import request, jsonify
 from config import config
 from models.index import db
 import controllers.artist as artist_controller
@@ -113,9 +113,13 @@ def play_track(id):
     return track_controller.play_track(track_id=id)
 
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def catch_all():
+@app.route('/')
+def welcome():
+    return jsonify({'message': 'Bienvenido. Revisa https://app.swaggerhub.com/apis-docs/dedarritchon/Integracionify para más obtener más información.'}), 400
+
+
+@app.route('/<path>')
+def catch_inexisting_routes(path):
     return jsonify({'message': 'Ruta no válida. Revisa https://app.swaggerhub.com/apis-docs/dedarritchon/Integracionify para más información.'}), 400
 
 
