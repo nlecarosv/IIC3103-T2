@@ -62,3 +62,34 @@ def create_track(album_id, request, base_url):
                              name=json['name'], duration=json['duration'], base_url=base_url)
         return jsonify(track.json()), 201
     return jsonify({'message': 'canción ya existe'}), 409
+
+
+def play_track(track_id):
+    track = Track.query.filter_by(id=track_id).first()
+    if track is None:
+        return jsonify({'message': 'canción no encontrada'}), 404
+
+    track.times_played += 1
+    track.update()
+    return jsonify({'message': 'canción reproducida'})
+
+
+def play_tracks_from_album(album_id):
+    album = Album.query.filter_by(id=album_id).first()
+    if album is None:
+        return jsonify({'message': 'álbum no encontrado'}), 404
+    for track in album.tracks:
+        track.times_played += 1
+        track.update()
+    return jsonify({'message': 'canciones del álbum reproducidas'})
+
+
+def play_tracks_from_artist(artist_id):
+    artist = Artist.query.filter_by(id=artist_id).first()
+    if artist is None:
+        return jsonify({'message': 'artista no encontrado'}), 404
+    for album in artist.albums:
+        for track in album.tracks:
+            track.times_played += 1
+            track.update()
+    return jsonify({'message': 'todas las canciones del artista fueron reproducidas'})
