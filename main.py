@@ -18,11 +18,12 @@ def create_app(enviroment):
         return app
 
 
+print('Estoy en main')
 enviroment = config[os.environ['ENVIRONMENT']]
-print(enviroment)
+print('enviroment:', enviroment)
 base_url = enviroment.BASE_URL
-print(enviroment.SQLALCHEMY_DATABASE_URI)
-print(base_url)
+print('base_url:', base_url)
+print('SQL URL:', enviroment.SQLALCHEMY_DATABASE_URI)
 app = create_app(enviroment)
 
 
