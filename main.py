@@ -18,12 +18,8 @@ def create_app(enviroment):
         return app
 
 
-print('Estoy en main')
 enviroment = config[os.environ['ENVIRONMENT']]
-print('enviroment:', enviroment)
 base_url = enviroment.BASE_URL
-print('base_url:', base_url)
-print('SQL URL:', enviroment.SQLALCHEMY_DATABASE_URI)
 app = create_app(enviroment)
 
 
@@ -115,6 +111,12 @@ def delete_track(id):
 @app.route('/tracks/<id>/play', methods=['PUT'])
 def play_track(id):
     return track_controller.play_track(track_id=id)
+
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all():
+    return jsonify({'message': 'Ruta no válida. Revisa https://app.swaggerhub.com/apis-docs/dedarritchon/Integracionify para más información.'}), 400
 
 
 if __name__ == '__main__':
