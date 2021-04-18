@@ -1,25 +1,26 @@
+from models.album import Album
 from models.artist import Artist
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import UUID
 from models.index import db
 
 
-class Album(db.Model):
-    __tablename__ = 'album'
+class Track(db.Model):
+    __tablename__ = 'track'
     id = db.Column(db.String(22), primary_key=True)
-    artist_id = db.Column(db.String(22), db.ForeignKey('artist.id'),
-                          nullable=False)
+    album_id = db.Column(db.String(22), db.ForeignKey('album.id'),
+                         nullable=False)
     name = db.Column(db.String(50), nullable=False)
-    genre = db.Column(db.String(50), nullable=False)
+    duration = db.Column(db.Float, nullable=False)
+    times_played = db.Column(db.Integer, nullable=False, default=0)
     url = db.Column(db.String(100), nullable=False)
-    tracks = db.relationship("Track", backref='album', lazy=True)
 
     @classmethod
-    def create(cls, album_id, artist_id, name, genre, base_url):
+    def create(cls, track_id, album_id, name, duration, base_url):
         url = base_url + f'/albums/{album_id}'
-        album = Album(id=album_id, artist_id=artist_id,
-                      name=name, genre=genre, url=url)
-        return album.save()
+        track = Track(id=track_id, album_id=album_id,
+                      name=name, duration=duration, url=url)
+        return track.save()
 
     def save(self):
         try:
@@ -41,12 +42,16 @@ class Album(db.Model):
             return False
 
     def json(self):
-        artist = Artist.query.filter_by(id=self.artist_id).first()
+        album = Album.query.filter_by(id=self.album_id).first()
+        artist = Artist.query.filter_by(id=album.artist_id).first()
         return {
             'id': self.id,
             'name': self.name,
-            'genre': self.genre,
+            'duration': self.duration,
             'artist': artist.name,
-            'artist_id': self.artist_id,
+            'artist_id': artist.id,
+            'album': album.name,
+            'album_id': self.album_id,
+            'times_played': self.times_played,
             'url': self.url,
         }
