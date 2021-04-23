@@ -47,13 +47,13 @@ def create_track(album_id, request, base_url):
         return jsonify({'message': 'input inválido'}), 400
     if len(album_id) == 0:
         return jsonify({'message': 'input inválido'}), 400
+    json = request.get_json(force=True)
+    if json.get('name') is None or json.get('duration') is None:
+        return jsonify({'message': 'input inválido'}), 400
     possible_album = Album.query.filter_by(id=album_id).first()
     if possible_album is None:
         return jsonify({'message': 'álbum no existe'}), 422
     album = possible_album
-    json = request.get_json(force=True)
-    if json.get('name') is None or json.get('duration') is None:
-        return jsonify({'message': 'input inválido'}), 400
     track_name = json['name']
     track_id = b64encode(
         f'{track_name}:{album.name}'.encode()).decode('utf-8')
