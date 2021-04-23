@@ -48,7 +48,7 @@ def create_album(artist_id, request, base_url):
         album = Album.create(album_id=album_id, artist_id=artist_id,
                              name=json['name'], genre=json['genre'], base_url=base_url)
         return jsonify(album.json()), 201
-    return jsonify({'message': 'álbum ya existe'}), 409
+    return jsonify(possible_album.json()), 409
 
 
 def delete_album(album_id):

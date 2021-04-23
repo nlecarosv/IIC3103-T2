@@ -30,7 +30,7 @@ def create_artist(request, base_url):
         artist = Artist.create(
             artist_id=artist_id, name=json['name'], age=json['age'], base_url=base_url)
         return jsonify(artist.json()), 201
-    return jsonify({'message': 'artista ya existe'}), 409
+    return jsonify(possible_artist.json()), 409
 
 
 def delete_artist(artist_id):
