@@ -22,7 +22,6 @@ def get_tracks_for_album(album_id):
 
 
 def get_tracks_for_artist(artist_id):
-    print("Bien")
     possible_artist = Artist.query.filter_by(id=artist_id).first()
     if possible_artist is None:
         return jsonify({'message': 'artista no encontrado'}), 404
