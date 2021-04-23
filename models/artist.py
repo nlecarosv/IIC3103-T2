@@ -40,5 +40,7 @@ class Artist(db.Model):
             'id': self.id,
             'name': self.name,
             'age': self.age,
-            'url': self.url,
+            'albums': f'{self.url}/albums',
+            'tracks': f'{self.url}/tracks',
+            'self': self.url
         }

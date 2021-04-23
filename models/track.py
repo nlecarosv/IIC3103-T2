@@ -46,12 +46,11 @@ class Track(db.Model):
         artist = Artist.query.filter_by(id=album.artist_id).first()
         return {
             'id': self.id,
+            'album_id': self.album_id,
             'name': self.name,
             'duration': self.duration,
-            'artist': artist.name,
-            'artist_id': artist.id,
-            'album': album.name,
-            'album_id': self.album_id,
             'times_played': self.times_played,
-            'url': self.url,
+            'artist': artist.url,
+            'album': album.url,
+            'self': self.url,
         }
