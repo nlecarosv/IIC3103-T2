@@ -47,6 +47,7 @@ def create_album(artist_id, request, base_url):
     if possible_album is None:
         album = Album.create(album_id=album_id, artist_id=artist_id,
                              name=json['name'], genre=json['genre'], base_url=base_url)
+        print(f'Creado con exito\n{album.id}\n\n')
         return jsonify(album.json()), 201
     return jsonify(possible_album.json()), 409
 

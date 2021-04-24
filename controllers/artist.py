@@ -29,6 +29,7 @@ def create_artist(request, base_url):
     if possible_artist is None:
         artist = Artist.create(
             artist_id=artist_id, name=json['name'], age=json['age'], base_url=base_url)
+        print(f'Creado con exito\n{artist.id}\n\n')
         return jsonify(artist.json()), 201
     return jsonify(possible_artist.json()), 409
 
