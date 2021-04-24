@@ -55,7 +55,7 @@ def create_track(album_id, request, base_url):
     album = possible_album
     track_name = json['name']
     track_id = b64encode(
-        f'{track_name}:{album.name}'.encode()).decode('utf-8')
+        f'{track_name}:{album.id}'.encode()).decode('utf-8')
     track_id = truncate_id(track_id)
     possible_track = Track.query.filter_by(id=track_id).first()
     if possible_track is None:

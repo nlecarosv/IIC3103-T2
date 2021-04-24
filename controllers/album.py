@@ -41,7 +41,7 @@ def create_album(artist_id, request, base_url):
         return jsonify({'message': 'input inválido'}), 400
     album_name = json['name']
     album_id = b64encode(
-        f'{album_name}:{artist.name}'.encode()).decode('utf-8')
+        f'{album_name}:{artist.id}'.encode()).decode('utf-8')
     album_id = truncate_id(album_id)
     possible_album = Album.query.filter_by(id=album_id).first()
     if possible_album is None:
