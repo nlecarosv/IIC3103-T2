@@ -87,7 +87,7 @@ def get_tracks_for_album(id):
 
 @app.route('/albums/<album_id>/tracks', methods=['POST'])
 def create_track(album_id):
-    print(f'/albums/{album_id}/tracks', request.get_data())
+    print(f'\n\n/albums/{album_id}/tracks', request.get_data())
     return track_controller.create_track(album_id=album_id, request=request, base_url=base_url)
 
 
