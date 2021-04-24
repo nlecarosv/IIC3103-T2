@@ -61,7 +61,6 @@ def create_track(album_id, request, base_url):
     if possible_track is None:
         track = Track.create(track_id=track_id, album_id=album_id,
                              name=json['name'], duration=json['duration'], base_url=base_url)
-        print(f'Creado con exito\n{track.id}\n\n')
         return jsonify(track.json()), 201
     return jsonify(possible_track.json()), 409
 
@@ -102,4 +101,4 @@ def delete_track(track_id):
     if track is None:
         return jsonify({'message': 'canción inexistente'}), 404
     track.delete()
-    return jsonify({'message': 'canción eliminada'})
+    return jsonify({'message': 'canción eliminada'}), 204

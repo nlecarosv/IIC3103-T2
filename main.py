@@ -30,7 +30,6 @@ def get_artists():
 
 @app.route('/artists', methods=['POST'])
 def create_artist():
-    print('\n\n/artists', request.get_data())
     return artist_controller.create_artist(request=request, base_url=base_url)
 
 
@@ -51,7 +50,6 @@ def get_albums_for_artist(id):
 
 @app.route('/artists/<artist_id>/albums', methods=['POST'])
 def create_album(artist_id):
-    print(f'\n\n/artists/{artist_id}/albums', request.get_data())
     return album_controller.create_album(artist_id=artist_id, request=request, base_url=base_url)
 
 
@@ -87,7 +85,6 @@ def get_tracks_for_album(id):
 
 @app.route('/albums/<album_id>/tracks', methods=['POST'])
 def create_track(album_id):
-    print(f'\n\n/albums/{album_id}/tracks', request.get_data())
     return track_controller.create_track(album_id=album_id, request=request, base_url=base_url)
 
 
